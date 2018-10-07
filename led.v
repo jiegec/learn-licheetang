@@ -17,7 +17,7 @@ module led
 	
 	wire uart_tx_busy;
 	reg uart_tx_en;
-	wire [PAYLOAD_BITS-1:0] uart_tx_data;
+	reg [PAYLOAD_BITS-1:0] uart_tx_data;
 
 	wire uart_rx_break;
 	wire uart_rx_valid;
@@ -35,8 +35,18 @@ module led
 	assign uart_fifo_we = uart_rx_en && uart_rx_valid;
 	assign uart_fifo_di = uart_rx_data;
 
-	assign uart_tx_data = uart_fifo_do;
+	//assign uart_tx_data = uart_fifo_do;
 	assign uart_fifo_re = !uart_tx_busy && !uart_fifo_empty_flag;
+	
+	always begin
+		if (uart_fifo_do >= 8'h61 && uart_fifo_do <= 8'h6d) begin
+			uart_tx_data <= uart_fifo_do + 13;
+		end else if (uart_fifo_do >= 8'h6e && uart_fifo_do <= 8'h7a) begin
+			uart_tx_data <= uart_fifo_do - 13;
+		end else begin
+			uart_tx_data <= uart_fifo_do;
+		end
+	end
 
 	always @ (posedge clk_in) begin
 		uart_tx_en <= uart_fifo_re;
