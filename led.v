@@ -16,7 +16,7 @@ module led
 	assign rst = !rst_n;
 	
 	wire uart_tx_busy;
-	wire uart_tx_en;
+	reg uart_tx_en;
 	wire [PAYLOAD_BITS-1:0] uart_tx_data;
 
 	wire uart_rx_break;
@@ -35,9 +35,12 @@ module led
 	assign uart_fifo_we = uart_rx_en && uart_rx_valid;
 	assign uart_fifo_di = uart_rx_data;
 
-	assign uart_tx_en = !uart_tx_busy && !uart_fifo_empty_flag;
 	assign uart_tx_data = uart_fifo_do;
-	assign uart_fifo_re = uart_tx_en;
+	assign uart_fifo_re = !uart_tx_busy && !uart_fifo_empty_flag;
+
+	always @ (posedge clk_in) begin
+		uart_tx_en <= uart_fifo_re;
+	end
 
 	uart_rx #(
 	.BIT_RATE(BIT_RATE),
