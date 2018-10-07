@@ -10,5 +10,5 @@ learn_licheetang
 当前的针脚：
 -----------------
 
-A4 UART_TXD
-A3 UART_RXD
+- A4 UART_TXD
+- A3 UART_RXD

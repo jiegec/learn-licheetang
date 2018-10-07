@@ -13,6 +13,7 @@
             <File>led.v</File>
             <File>uart_tx.v</File>
             <File>uart_rx.v</File>
+            <File>al_ip/uart_fifo.v</File>
         </Verilog>
         <ADC_FILE>io.adc</ADC_FILE>
         <SDC_FILE/>
@@ -24,8 +25,8 @@
         <CREATEINDEX>auto</CREATEINDEX>
     </TOP_MODULE>
     <Project_Settings>
-        <Step_Last_Change>2018-10-07 16:18:43</Step_Last_Change>
-        <Current_Step>60</Current_Step>
-        <Step_Status>true</Step_Status>
+        <Step_Last_Change>2018-10-07 17:02:15</Step_Last_Change>
+        <Current_Step>10</Current_Step>
+        <Step_Status>false</Step_Status>
     </Project_Settings>
 </Project>
